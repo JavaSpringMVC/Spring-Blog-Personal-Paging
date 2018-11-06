@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Danh sach bai blog</h1>
+<table>
+    <th:block th:each="blogPersonal : ${blogPersonals}">
+        <tr >
+            <td th:text="${blogPersonal.getTitle()}"></td>
+            <td th:text="${blogPersonal.getDescription()}"></td>
+            <!--<td th:text="${blogPersonal.getImage()}"></td>
+            <td><img th:src="${blogPersonal.getImage()}" alt="" th:width="300"></td>-->
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
