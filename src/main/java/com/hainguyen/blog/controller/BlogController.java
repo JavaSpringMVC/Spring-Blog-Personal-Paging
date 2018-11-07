@@ -4,10 +4,7 @@ import com.hainguyen.blog.model.BlogPersonal;
 import com.hainguyen.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -33,9 +30,34 @@ public class BlogController {
 
     @PostMapping("/create-blog")
     public ModelAndView saveBlog(@ModelAttribute("blogPersonal") BlogPersonal blogPersonal){
+        System.out.println("Thanh cong");
         blogService.save(blogPersonal);
-        ModelAndView modelAndView = new ModelAndView("create");
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
         modelAndView.addObject("message", "Create blog successful");
+        return modelAndView;
+    }
+
+    @GetMapping("/edit-blog/{id}")
+    public ModelAndView updateFormBlog(@PathVariable("id") int id){
+        BlogPersonal blogPersonal = blogService.findById(id);
+        ModelAndView modelAndView = new ModelAndView("edit");
+        modelAndView.addObject("blogPersonal", blogPersonal);
+        return modelAndView;
+    }
+
+    @PostMapping("/edit-blog")
+    public ModelAndView saveBlogEdit(@ModelAttribute("blogPersonal") BlogPersonal blogPersonal){
+        blogService.save(blogPersonal);
+        ModelAndView modelAndView = new ModelAndView("edit");
+        modelAndView.addObject("message","Update blog successful");
+        return modelAndView;
+    }
+
+    @GetMapping("/delete-blog/{id}")
+    public ModelAndView deleteBlog(@PathVariable("id") int id){
+        blogService.remove(id);
+        ModelAndView modelAndView = new ModelAndView("list");
+        modelAndView.addObject("message", "Delete Blog successful");
         return modelAndView;
     }
 }

@@ -6,13 +6,29 @@
 </head>
 <body>
 <h1>Danh sach bai blog</h1>
-<table>
-    <tr th:each="blogPersonal : ${blogPersonals}">
-        <td th:text="${blogPersonal.getTitle()}"></td>
-        <td th:text="${blogPersonal.getDescription()}"></td>
-        <!--<td th:text="${blogPersonal.getImage()}"></td>
-        <td><img th:src="${blogPersonal.getImage()}" alt="" th:width="300"></td>-->
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<h3><a th:href="@{/create-blog}">Create new blog</a></h3>
+<table border="1px" cellpadding="0px" cellspacing="0px">
+    <tr style="text-align: center; text-transform: uppercase; font-weight: bold; color: red;">
+        <td width="200px">Title Blog</td>
+        <td>Description</td>
+        <td width="100px">Author</td>
+        <td width="300px">Image</td>
+        <td>Edit</td>
+        <td>Delete</td>
     </tr>
+    <th:block th:each="blogPersonal : ${blogPersonals}">
+        <tr >
+            <td th:text="${blogPersonal.getTitle()}"></td>
+            <td th:text="${blogPersonal.getDescription()}"></td>
+            <td th:text="${blogPersonal.getAuthor()}"></td>
+            <td><img th:src="${blogPersonal.getImage()}" alt="" th:width="300"></td>
+            <td><a th:href="@{/edit-blog/__${blogPersonal.getId()}__}">Edit</a></td>
+            <td><a th:href="@{/delete-blog/__${blogPersonal.getId()}__}" onclick="return confirm('Would you delete this blog?');">Delete</a></td>
+        </tr>
+    </th:block>
 </table>
 </body>
 </html>
