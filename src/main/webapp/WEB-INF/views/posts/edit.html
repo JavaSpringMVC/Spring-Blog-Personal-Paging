@@ -34,9 +34,11 @@
         <tr>
             <td>Category</td>
             <td>
-                <select th:field="*{category}">
+                <select name="category">
                     <option value="1" th:text="${'Please Choose Category'}"></option>
-                    <option th:each="c : ${categories}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+                    <option th:each="c : ${categories}" th:value="${c.getId()}"
+                            th:text="${c.getName()}"
+                            th:selected="(${c.getId()} == *{category.getId()})"></option>
                 </select>
             </td>
         </tr>

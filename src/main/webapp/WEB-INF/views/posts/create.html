@@ -9,7 +9,7 @@
 <p>
     <a href="/">BlogPersonal list</a>
 </p>
-<form th:action="@{/create-blog}" th:object="${blogPersonal}" method="post">
+<form th:action="@{/create-blog}" th:object="${blogPersonal}" method="post" onsubmit="return confirm('ok');">
     <table>
         <tr>
             <td>Blog title</td>
