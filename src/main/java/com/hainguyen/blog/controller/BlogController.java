@@ -56,7 +56,7 @@ public class BlogController {
     @GetMapping("/delete-blog/{id}")
     public ModelAndView deleteBlog(@PathVariable("id") int id){
         blogService.remove(id);
-        ModelAndView modelAndView = new ModelAndView("list");
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
         modelAndView.addObject("message", "Delete Blog successful");
         return modelAndView;
     }
