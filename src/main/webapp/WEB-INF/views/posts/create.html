@@ -9,9 +9,6 @@
 <p>
     <a href="/">BlogPersonal list</a>
 </p>
-<th:block th:if="${message}">
-    <p th:text="${message}"></p>
-</th:block>
 <form th:action="@{/create-blog}" th:object="${blogPersonal}" method="post">
     <table>
         <tr>
@@ -29,6 +26,15 @@
         <tr>
             <td>Image</td>
             <td><input type="text" th:field="*{image}"/></td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td>
+                <select th:field="*{category}">
+                    <option value="1" th:text="${'Please Choose Category'}"></option>
+                    <option th:each="c : ${categories}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td></td>

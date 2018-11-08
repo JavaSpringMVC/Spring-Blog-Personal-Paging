@@ -13,6 +13,10 @@ public class BlogPersonal {
     private String author;
     private String image;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public BlogPersonal() {
     }
 
@@ -61,5 +65,13 @@ public class BlogPersonal {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

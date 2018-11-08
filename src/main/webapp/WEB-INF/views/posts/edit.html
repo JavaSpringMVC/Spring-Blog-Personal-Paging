@@ -32,6 +32,15 @@
             <td><input type="text" th:field="*{image}"/></td>
         </tr>
         <tr>
+            <td>Category</td>
+            <td>
+                <select th:field="*{category}">
+                    <option value="1" th:text="${'Please Choose Category'}"></option>
+                    <option th:each="c : ${categories}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
             <td></td>
             <td><input type="submit" value="Update Blog"></td>
         </tr>

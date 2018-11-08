@@ -1,7 +1,9 @@
 package com.hainguyen.blog.controller;
 
 import com.hainguyen.blog.model.BlogPersonal;
+import com.hainguyen.blog.model.Category;
 import com.hainguyen.blog.service.BlogService;
+import com.hainguyen.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,14 @@ public class BlogController {
 
     @Autowired
     BlogService blogService;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @ModelAttribute("categories")
+    public Iterable<Category> categories(){
+        return categoryService.findAll();
+    }
 
     @GetMapping(value = {"/", "/blog"})
     public ModelAndView listBlog(){
@@ -30,7 +40,6 @@ public class BlogController {
 
     @PostMapping("/create-blog")
     public ModelAndView saveBlog(@ModelAttribute("blogPersonal") BlogPersonal blogPersonal){
-        System.out.println("Thanh cong");
         blogService.save(blogPersonal);
         ModelAndView modelAndView = new ModelAndView("redirect:/");
         modelAndView.addObject("message", "Create blog successful");

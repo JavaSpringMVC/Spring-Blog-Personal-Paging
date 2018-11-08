@@ -40,16 +40,20 @@ public class CategoryController {
 
     @GetMapping("/delete-category/{id}")
     public String deleteCategory(@PathVariable("id") int id, Model model) {
-        categoryService.remove(id);
-        model.addAttribute("message", "Delete Category Successful");
-        return "redirect:/list-category";
+        if (categoryService.findById(id) != null) {
+            categoryService.remove(id);
+            model.addAttribute("message", "Delete Category Successful");
+            return "redirect:/list-category";
+        }else {
+            return "error-404";
+        }
     }
 
     @GetMapping("/edit-category/{id}")
     public ModelAndView editCategoryForm(@PathVariable("id") int id) {
         Category category = categoryService.findById(id);
         ModelAndView modelAndView;
-        if (category != null) {
+        if (categoryService.findById(id) != null) {
             modelAndView = new ModelAndView("/category/edit");
             modelAndView.addObject("category", category);
         }else {
