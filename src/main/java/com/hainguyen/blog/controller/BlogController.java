@@ -16,14 +16,14 @@ public class BlogController {
     @GetMapping("/")
     public ModelAndView listBlog(){
         Iterable<BlogPersonal> blogPersonals = blogService.findAll();
-        ModelAndView modelAndView = new ModelAndView("list");
+        ModelAndView modelAndView = new ModelAndView("posts/list");
         modelAndView.addObject("blogPersonals", blogPersonals);
         return modelAndView;
     }
 
     @GetMapping("/create-blog")
     public ModelAndView createFormBlog(){
-        ModelAndView modelAndView = new ModelAndView("create");
+        ModelAndView modelAndView = new ModelAndView("posts/create");
         modelAndView.addObject("blogPersonal", new BlogPersonal());
         return modelAndView;
     }
@@ -39,25 +39,35 @@ public class BlogController {
 
     @GetMapping("/edit-blog/{id}")
     public ModelAndView updateFormBlog(@PathVariable("id") int id){
-        BlogPersonal blogPersonal = blogService.findById(id);
-        ModelAndView modelAndView = new ModelAndView("edit");
-        modelAndView.addObject("blogPersonal", blogPersonal);
+        ModelAndView modelAndView;
+        if(blogService.findById(id) != null) {
+            BlogPersonal blogPersonal = blogService.findById(id);
+            modelAndView = new ModelAndView("posts/edit");
+            modelAndView.addObject("blogPersonal", blogPersonal);
+        }else {
+            modelAndView = new ModelAndView("error-404");
+        }
         return modelAndView;
     }
 
     @PostMapping("/edit-blog")
     public ModelAndView saveBlogEdit(@ModelAttribute("blogPersonal") BlogPersonal blogPersonal){
         blogService.save(blogPersonal);
-        ModelAndView modelAndView = new ModelAndView("edit");
+        ModelAndView modelAndView = new ModelAndView("posts/edit");
         modelAndView.addObject("message","Update blog successful");
         return modelAndView;
     }
 
     @GetMapping("/delete-blog/{id}")
     public ModelAndView deleteBlog(@PathVariable("id") int id){
-        blogService.remove(id);
-        ModelAndView modelAndView = new ModelAndView("redirect:/");
-        modelAndView.addObject("message", "Delete Blog successful");
+        ModelAndView modelAndView;
+        if(blogService.findById(id) != null){
+            blogService.remove(id);
+            modelAndView = new ModelAndView("redirect:/    ");
+            modelAndView.addObject("message", "Delete Blog successful");
+        }else {
+            modelAndView = new ModelAndView("error-404");
+        }
         return modelAndView;
     }
 }
