@@ -1,19 +1,18 @@
 package com.hainguyen.blog.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "Category")
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
 
-    public Category(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    @OneToMany(targetEntity = BlogPersonal.class)
+    private List<BlogPersonal> blogPersonals;
 
     public Category() {
     }
@@ -32,5 +31,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<BlogPersonal> getBlogPersonals() {
+        return blogPersonals;
+    }
+
+    public void setBlogPersonals(List<BlogPersonal> blogPersonals) {
+        this.blogPersonals = blogPersonals;
     }
 }

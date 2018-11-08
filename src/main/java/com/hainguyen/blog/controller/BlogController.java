@@ -13,7 +13,7 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
-    @GetMapping("/")
+    @GetMapping(value = {"/", "/blog"})
     public ModelAndView listBlog(){
         Iterable<BlogPersonal> blogPersonals = blogService.findAll();
         ModelAndView modelAndView = new ModelAndView("posts/list");

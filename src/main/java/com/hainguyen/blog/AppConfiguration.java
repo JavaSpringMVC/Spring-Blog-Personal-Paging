@@ -1,7 +1,9 @@
 package com.hainguyen.blog;
 
 import com.hainguyen.blog.service.BlogService;
+import com.hainguyen.blog.service.CategoryService;
 import com.hainguyen.blog.service.Impl.BlogServiceImpl;
+import com.hainguyen.blog.service.Impl.CategoryServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -48,6 +50,11 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     @Bean
     public BlogService blogService() {
         return new BlogServiceImpl();
+    }
+
+    @Bean
+    public CategoryService categoryService(){
+        return new CategoryServiceImpl();
     }
 
     //Thymeleaf Configuration
