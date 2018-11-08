@@ -1,5 +1,6 @@
 package com.hainguyen.blog;
 
+import com.hainguyen.blog.formatter.CategoryFormatter;
 import com.hainguyen.blog.service.BlogService;
 import com.hainguyen.blog.service.CategoryService;
 import com.hainguyen.blog.service.Impl.BlogServiceImpl;
@@ -12,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.format.FormatterRegistrar;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -45,6 +48,11 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry){
+        registry.addFormatter(new CategoryFormatter(applicationContext.getBean(CategoryService.class)));
     }
 
     @Bean

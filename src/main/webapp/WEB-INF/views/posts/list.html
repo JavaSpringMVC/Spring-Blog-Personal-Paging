@@ -15,7 +15,8 @@
         <td width="200px">Title Blog</td>
         <td>Description</td>
         <td width="100px">Author</td>
-        <td width="300px">Image</td>
+        <td>Category</td>
+        <td width="200px">Image</td>
         <td>Edit</td>
         <td>Delete</td>
     </tr>
@@ -24,7 +25,8 @@
             <td th:text="${blogPersonal.getTitle()}"></td>
             <td th:text="${blogPersonal.getDescription()}"></td>
             <td th:text="${blogPersonal.getAuthor()}"></td>
-            <td><img th:src="${blogPersonal.getImage()}" alt="" th:width="300"></td>
+            <td th:text="${blogPersonal.category.getName()}"></td>
+            <td><img th:src="${blogPersonal.getImage()}" alt="" th:width="200"></td>
             <td><a th:href="@{/edit-blog/__${blogPersonal.getId()}__}">Edit</a></td>
             <td><a th:href="@{/delete-blog/__${blogPersonal.getId()}__}" onclick="return confirm('Would you delete this blog?');">Delete</a></td>
         </tr>

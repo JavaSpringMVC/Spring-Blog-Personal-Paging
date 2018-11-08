@@ -72,7 +72,7 @@ public class BlogController {
         ModelAndView modelAndView;
         if(blogService.findById(id) != null){
             blogService.remove(id);
-            modelAndView = new ModelAndView("redirect:/    ");
+            modelAndView = new ModelAndView("redirect:/");
             modelAndView.addObject("message", "Delete Blog successful");
         }else {
             modelAndView = new ModelAndView("error-404");
